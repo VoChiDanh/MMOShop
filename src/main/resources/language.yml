@@ -1,0 +1,12 @@
+SELL_ITEMS: "&aSell %item% x %amount% with %price%$"
+BUY_ITEMS: "&aBuy %item% x %amount% with %price%$"
+NOT_ENOUGH_ITEM: "&eYou do not have enough %item%&e to sell!"
+NOT_ENOUGH_MONEY: "&eYou do not have enough &c%money%$&e to buy!"
+CHAT_AMOUNT: "&6Chat amount of item to sell/buy, chat 'exit' to exit"
+CAN_NOT_SELL: "&3You can not sell this item!"
+CAN_NOT_BUY: "&3You can not buy this item!"
+HELP:
+  DEFAULT:
+    - "&e/MMOShop Shop <Name> - Open shop &3| mmo.shop.<name> or mmo.shop.*"
+  ADMIN:
+    - "&c/MMOShop reload - Reload files &6| mmo.admin"
