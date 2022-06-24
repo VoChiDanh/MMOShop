@@ -111,7 +111,7 @@ public class Item {
             return;
         }
         item.setAmount(amount);
-        if (Integer.parseInt(Cost(p, Placeholder)) == price * amount) {
+        if (Integer.parseInt(Cost(p, Placeholder)) >= price * amount) {
             ExecuteCommand(p, commands, price * amount);
             p.getInventory().addItem(item);
             sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%", symbol).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.format("%,d", price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
