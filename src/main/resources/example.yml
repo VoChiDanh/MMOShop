@@ -1,0 +1,33 @@
+NAME: '&0Shop example'
+SIZE: 1
+ITEMS:
+  FILL:
+    MATERIAL: BLACK_STAINED_GLASS_PANE
+    NAME: '&7 '
+    HIDE_FLAG: true
+    GLOW: false
+    SLOTS:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 5
+      - 6
+      - 7
+      - 8
+    LORE:
+      - '&7 '
+  RARE_DIAMOND:
+    MMO_TYPE: MATERIAL
+    MMO_ID: RARE_DIAMOND
+    SYMBOL: "$"
+    SELL_PRICE:
+      COST: 100
+      COMMAND:
+        - "[CMD] eco take %player_name% %cost%"
+    BUY_PRICE:
+      PLACEHOLDER: "%vault_eco_balance_fixed%"
+      COST: 1000
+      COMMAND:
+        - "[CMD] eco give %player_name% %cost%"
+    SLOT: 4

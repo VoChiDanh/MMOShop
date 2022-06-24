@@ -54,7 +54,7 @@ public class Shops {
                     return;
                 }
                 List<String> lore = meta.getLore();
-                List<String> lore_item = Files.getConfig().getStringList("LORE").stream().map(s -> s.replaceAll("%sell%", String.format("%,d", get.getInt("ITEMS." + item_name + ".SELL_PRICE"))).replaceAll("%buy%", String.format("%,d", get.getInt("ITEMS." + item_name + ".BUY_PRICE")))).collect(Collectors.toList());
+                List<String> lore_item = Files.getConfig().getStringList("LORE").stream().map(s -> s.replaceAll("%symbol%", Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL"))).replaceAll("%sell%", String.format("%,d", get.getInt("ITEMS." + item_name + ".SELL_PRICE.COST"))).replaceAll("%buy%", String.format("%,d", get.getInt("ITEMS." + item_name + ".BUY_PRICE.COST")))).collect(Collectors.toList());
                 if (lore != null) {
                     lore.addAll(lore_item);
                     meta.setLore(Lore(lore));

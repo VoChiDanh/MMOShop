@@ -1,8 +1,8 @@
 DEBUG: false
 LORE:
   - ""
-  - "&aSell Price: %sell%$"
-  - "&aBuy Price: %buy%$"
+  - "&aSell Price: %sell%%symbol%"
+  - "&aBuy Price: %buy%%symbol%"
   - ""
   - "&3Left-click to sell"
   - "&3Right-click to buy"
