@@ -58,6 +58,8 @@ public class Shops {
                 if (lore != null) {
                     lore.addAll(lore_item);
                     meta.setLore(Lore(lore));
+                } else {
+                    meta.setLore(Lore(lore_item));
                 }
                 item.setItemMeta(meta);
                 int slot = get.getInt("ITEMS." + item_name + ".SLOT");
