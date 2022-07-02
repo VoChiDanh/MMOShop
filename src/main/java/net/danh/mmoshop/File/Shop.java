@@ -65,6 +65,7 @@ public class Shop {
                 config.set("ITEMS.FILL.LORE", lore);
                 config.set("ITEMS.RARE_DIAMOND.MMO_TYPE", "MATERIAL");
                 config.set("ITEMS.RARE_DIAMOND.MMO_ID", "RARE_DIAMOND");
+                config.set("ITEMS.RARE_DIAMOND.SYMBOL", "$");
                 config.set("ITEMS.RARE_DIAMOND.SELL_PRICE.COMMAND", sell_command);
                 config.set("ITEMS.RARE_DIAMOND.SELL_PRICE.COST", 100);
                 config.set("ITEMS.RARE_DIAMOND.BUY_PRICE.PLACEHOLDER", "%vault_eco_balance_fixed%");
