@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
 
 import static net.danh.dcore.Utils.Player.sendPlayerMessage;
 import static net.danh.mmoshop.File.Files.getLanguage;
@@ -66,9 +67,9 @@ public class Item {
         if (a >= amount) {
             removeItems(p, item, amount);
             ExecuteCommand(p, Command, price * amount);
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", symbol).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.format("%,d", price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
+            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%",  Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.format("%,d", price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
         } else {
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%", symbol).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()));
+            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%",  Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()));
         }
     }
 
@@ -94,11 +95,13 @@ public class Item {
 
     public static void ExecuteCommand(Player p, List<String> commands, Integer cost) {
         for (String cmd : commands) {
-            if (cmd.startsWith("[CMD]")) {
+            if (cmd.startsWith("[CMD] ")) {
+                String command = PlaceholderAPI.setPlaceholders(p, cmd.replace("[CMD] ", "").replaceAll("%cost%", String.valueOf(cost)));
+                p.sendMessage(command);
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        MMOShop.getInstance().getServer().dispatchCommand(MMOShop.getInstance().getServer().getConsoleSender(), PlaceholderAPI.setPlaceholders(p, cmd.replaceAll("[CMD]", "").replaceAll("%cost%", String.valueOf(cost))));
+                        MMOShop.getInstance().getServer().dispatchCommand(MMOShop.getInstance().getServer().getConsoleSender(), command);
                     }
                 }.runTask(MMOShop.getInstance());
             }
@@ -114,9 +117,9 @@ public class Item {
         if (Integer.parseInt(Cost(p, Placeholder)) >= price * amount) {
             ExecuteCommand(p, commands, price * amount);
             p.getInventory().addItem(item);
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%", symbol).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.format("%,d", price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
+            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%",  Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.format("%,d", price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
         } else {
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_MONEY")).replaceAll("%symbol%", symbol).replaceAll("%money%", String.format("%,d", price * amount)));
+            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_MONEY")).replaceAll("%symbol%",  Matcher.quoteReplacement(symbol)).replaceAll("%money%", String.format("%,d", price * amount)));
         }
     }
 
