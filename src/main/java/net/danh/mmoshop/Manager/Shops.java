@@ -15,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 import static net.danh.dcore.Utils.Items.Lore;
@@ -54,12 +55,7 @@ public class Shops {
                     return;
                 }
                 List<String> lore = meta.getLore();
-                List<String> lore_item;
-                if (get.get("ITEMS." + item_name + ".SYMBOL") != null) {
-                    lore_item = Files.getConfig().getStringList("LORE").stream().map(s -> s.replaceAll("%symbol%", String.valueOf(get.get("ITEMS." + item_name + ".SYMBOL"))).replaceAll("%sell%", String.format("%,d", get.getInt("ITEMS." + item_name + ".SELL_PRICE.COST"))).replaceAll("%buy%", String.format("%,d", get.getInt("ITEMS." + item_name + ".BUY_PRICE.COST")))).collect(Collectors.toList());
-                } else {
-                    lore_item = Files.getConfig().getStringList("LORE").stream().map(s -> s.replaceAll("%symbol%", "$").replaceAll("%sell%", String.format("%,d", get.getInt("ITEMS." + item_name + ".SELL_PRICE.COST"))).replaceAll("%buy%", String.format("%,d", get.getInt("ITEMS." + item_name + ".BUY_PRICE.COST")))).collect(Collectors.toList());
-                }
+                List<String> lore_item = Files.getConfig().getStringList("LORE").stream().map(s -> s.replaceAll("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replaceAll("%sell%", String.format("%,d", get.getInt("ITEMS." + item_name + ".SELL_PRICE.COST"))).replaceAll("%buy%", String.format("%,d", get.getInt("ITEMS." + item_name + ".BUY_PRICE.COST")))).collect(Collectors.toList());
                 if (lore != null) {
                     lore.addAll(lore_item);
                     meta.setLore(Lore(lore));
