@@ -2,7 +2,7 @@ name: MMOShop
 version: '${project.version}'
 main: net.danh.mmoshop.MMOShop
 api-version: 1.16
-depend: [ MMOItems, MythicLib ]
+depend: [ MMOItems, MythicLib, PlaceholderAPI ]
 authors: [ VoChiDanh ]
 description: Plugins shop for MMOItems
 commands:
