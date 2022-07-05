@@ -57,7 +57,7 @@ public class Item {
         player.updateInventory();
     }
 
-    public static void sellItem(Player p, String type, String id, Integer price, String symbol, List<String> Command, Integer amount) {
+    public static void sellItem(Player p, String type, String id, Double price, String symbol, List<String> Command, Integer amount) {
         ItemStack item = item(type, id);
         if (item == null) {
             return;
@@ -66,7 +66,7 @@ public class Item {
         int a = getPlayerAmount(p, item);
         if (a >= amount) {
             removeItems(p, item, amount);
-            ExecuteCommand(p, Command, price * amount);
+            ExecuteCommand(p, Command, (int)(price * amount));
             sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.format("%,d", price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
         } else {
             sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()));
@@ -107,14 +107,14 @@ public class Item {
         }
     }
 
-    public static void buyItem(Player p, String type, String id, Integer price, String symbol, List<String> commands, String Placeholder, Integer amount) {
+    public static void buyItem(Player p, String type, String id, Double price, String symbol, List<String> commands, String Placeholder, Integer amount) {
         ItemStack item = item(type, id);
         if (item == null) {
             return;
         }
         item.setAmount(amount);
         if (Integer.parseInt(Cost(p, Placeholder)) >= price * amount) {
-            ExecuteCommand(p, commands, price * amount);
+            ExecuteCommand(p, commands, (int) (price * amount));
             p.getInventory().addItem(item);
             sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.format("%,d", price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
         } else {

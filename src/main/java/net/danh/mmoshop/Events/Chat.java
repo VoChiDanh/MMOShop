@@ -26,7 +26,7 @@ public class Chat implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), shop.getConfig().getInt("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COST"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COMMAND"), Integer.parseInt(msg));
+                        Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), shop.getConfig().getDouble("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COST"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COMMAND"), Integer.parseInt(msg));
                         Debug.sell.remove(p);
                         Debug.name.remove(p, shop.getName());
                         Debug.item_type.remove(p);
@@ -55,7 +55,7 @@ public class Chat implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        Item.buyItem(p, Debug.item_type.get(p), Debug.item_id.get(p), shop.getConfig().getInt("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.COST"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.COMMAND"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.PLACEHOLDER"), Integer.parseInt(msg));
+                        Item.buyItem(p, Debug.item_type.get(p), Debug.item_id.get(p), shop.getConfig().getDouble("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.COST"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.COMMAND"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.PLACEHOLDER"), Integer.parseInt(msg));
                         Debug.buy.remove(p);
                         Debug.name.remove(p, shop.getName());
                         Debug.item_type.remove(p);
