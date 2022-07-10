@@ -6,10 +6,16 @@ import net.danh.mmoshop.File.Shop;
 import net.danh.mmoshop.MMOShop;
 import net.danh.mmoshop.Manager.Shops;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static net.danh.dcore.List.Contain.inList;
 import static net.danh.dcore.Utils.Player.sendConsoleMessage;
@@ -86,5 +92,30 @@ public class CMD extends CMDBase {
                 }
             }
         }
+    }
+
+    @Override
+    public List<String> TabComplete(CommandSender sender, String[] args) {
+        List<String> completions = new ArrayList<>();
+        List<String> commands = new ArrayList<>();
+        if (args.length == 1) {
+            if (sender.hasPermission("mmoshop.admin")) {
+                commands.add("help");
+                commands.add("reload");
+            }
+            commands.add("shop");
+            StringUtil.copyPartialMatches(args[0], commands, completions);
+        }
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("shop")) {
+                for (String shop_name : Files.getConfig().getStringList("SHOP")) {
+                    if (sender.hasPermission("mmoshop.shop." + shop_name) || sender.hasPermission("mmoshop.shop.*")) {
+                        StringUtil.copyPartialMatches(args[1], Collections.singleton(shop_name), completions);
+                    }
+                }
+            }
+        }
+        Collections.sort(completions);
+        return completions;
     }
 }
