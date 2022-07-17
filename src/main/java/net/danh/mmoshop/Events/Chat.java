@@ -49,7 +49,7 @@ public class Chat implements Listener {
                     }
                 }.runTask(MMOShop.getInstance());
             }
-            if (msg.equalsIgnoreCase("exit")) {
+            if (msg.equalsIgnoreCase(org.bukkit.ChatColor.stripColor(Files.getConfig().getString("EXIT_MESSAGE")))) {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
@@ -90,7 +90,7 @@ public class Chat implements Listener {
                     }
                 }.runTask(MMOShop.getInstance());
             }
-            if (msg.equalsIgnoreCase("exit")) {
+            if (msg.equalsIgnoreCase(org.bukkit.ChatColor.stripColor(Files.getConfig().getString("EXIT_MESSAGE")))) {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
