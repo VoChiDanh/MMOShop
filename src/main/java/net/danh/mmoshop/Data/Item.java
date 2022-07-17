@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -89,8 +90,8 @@ public class Item {
         return null;
     }
 
-    public static String Cost(Player p, String placeholders) {
-        return PlaceholderAPI.setPlaceholders(p, placeholders);
+    public static Integer Cost(Player p, String placeholders) {
+        return BigDecimal.valueOf(Long.parseLong(PlaceholderAPI.setPlaceholders(p, placeholders))).intValue();
     }
 
     public static void ExecuteCommand(Player p, List<String> commands, Integer cost) {
@@ -113,7 +114,7 @@ public class Item {
             return;
         }
         item.setAmount(amount);
-        if (Integer.parseInt(Cost(p, Placeholder)) >= price * amount) {
+        if (Cost(p, Placeholder) >= (int) (price * amount)) {
             ExecuteCommand(p, commands, (int) (price * amount));
             p.getInventory().addItem(item);
             sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.valueOf(price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
