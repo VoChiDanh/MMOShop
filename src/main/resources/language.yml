@@ -5,6 +5,7 @@ NOT_ENOUGH_MONEY: "&eYou do not have enough &c%money%%symbol%&e to buy!"
 CHAT_AMOUNT: "&6Chat amount of item to sell/buy, chat 'exit' to exit"
 CAN_NOT_SELL: "&3You can not sell this item!"
 CAN_NOT_BUY: "&3You can not buy this item!"
+NOT_NUMBER: "&cYou need type a number!"
 HELP:
   DEFAULT:
     - "&e/MMOShop Shop <Name> - Open shop &3| mmoshop.shop.<name> or mmoshop.shop.*"

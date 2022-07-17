@@ -1,6 +1,7 @@
 package net.danh.mmoshop.Events;
 
 import net.danh.mmoshop.Data.Item;
+import net.danh.mmoshop.File.Files;
 import net.danh.mmoshop.File.Shop;
 import net.danh.mmoshop.MMOShop;
 import net.danh.mmoshop.Manager.Debug;
@@ -13,6 +14,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import static net.danh.dcore.Random.Number.isInteger;
+import static net.danh.dcore.Utils.Player.sendPlayerMessage;
 
 public class Chat implements Listener {
 
@@ -27,6 +29,18 @@ public class Chat implements Listener {
                     @Override
                     public void run() {
                         Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), shop.getConfig().getDouble("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COST"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COMMAND"), Integer.parseInt(msg));
+                        Debug.sell.remove(p);
+                        Debug.name.remove(p, shop.getName());
+                        Debug.item_type.remove(p);
+                        Debug.item_id.remove(p);
+                        Shops.openShop(p, shop);
+                    }
+                }.runTask(MMOShop.getInstance());
+            } else {
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        sendPlayerMessage(p, Files.getLanguage().getString("NOT_NUMBER"));
                         Debug.sell.remove(p);
                         Debug.name.remove(p, shop.getName());
                         Debug.item_type.remove(p);
@@ -57,6 +71,18 @@ public class Chat implements Listener {
                     public void run() {
                         Item.buyItem(p, Debug.item_type.get(p), Debug.item_id.get(p), shop.getConfig().getDouble("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.COST"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.COMMAND"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.PLACEHOLDER"), Integer.parseInt(msg));
                         Debug.buy.remove(p);
+                        Debug.name.remove(p, shop.getName());
+                        Debug.item_type.remove(p);
+                        Debug.item_id.remove(p);
+                        Shops.openShop(p, shop);
+                    }
+                }.runTask(MMOShop.getInstance());
+            } else {
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        sendPlayerMessage(p, Files.getLanguage().getString("NOT_NUMBER"));
+                        Debug.sell.remove(p);
                         Debug.name.remove(p, shop.getName());
                         Debug.item_type.remove(p);
                         Debug.item_id.remove(p);

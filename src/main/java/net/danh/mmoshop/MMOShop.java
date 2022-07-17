@@ -6,6 +6,8 @@ import net.danh.mmoshop.Events.Chat;
 import net.danh.mmoshop.Events.Inventory;
 import net.danh.mmoshop.File.Files;
 import net.danh.mmoshop.File.Shop;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MMOShop extends JavaPlugin {
@@ -38,6 +40,9 @@ public final class MMOShop extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            p.closeInventory();
+        }
         Files.save();
     }
 }
