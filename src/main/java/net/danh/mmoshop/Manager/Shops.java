@@ -24,6 +24,7 @@ import static net.danh.dcore.Utils.Items.makeItem;
 public class Shops {
 
     public static void openShop(Player p, Shop shop) {
+        Debug.playerShopHashMap.put(p, shop);
         FileConfiguration get = shop.getConfig();
         String name = Chat.colorize(Objects.requireNonNull(get.getString("NAME")));
         int size = get.getInt("SIZE") * 9;

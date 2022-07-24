@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 
 import java.util.Objects;
 
@@ -18,18 +19,28 @@ import static net.danh.dcore.Utils.Player.sendPlayerMessage;
 public class Inventory implements Listener {
 
     @EventHandler
+    public void onClose(InventoryCloseEvent e) {
+        if (e.getPlayer() instanceof Player) {
+            Player p = (Player) e.getPlayer();
+            if (Debug.playerShopHashMap.containsKey(p)) {
+                Shop shop = Debug.playerShopHashMap.get(p);
+                FileConfiguration get = shop.getConfig();
+                String sname = get.getString("NAME");
+                if (e.getView().getTitle().equals(Chat.colorize(Objects.requireNonNull(sname)))) {
+                    Debug.playerShopHashMap.remove(p);
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void onClick(InventoryClickEvent e) {
         if (e.getWhoClicked() instanceof Player) {
             Player p = (Player) e.getWhoClicked();
-            for (String name : Files.getConfig().getStringList("SHOP")) {
-                Shop shop = new Shop(name);
+            if (Debug.playerShopHashMap.containsKey(p)) {
+                Shop shop = Debug.playerShopHashMap.get(p);
                 FileConfiguration get = shop.getConfig();
-                String sname;
-                if (!get.contains("NAME")) {
-                    sname = "&0Shop " + shop.getName();
-                } else {
-                    sname = get.getString("NAME");
-                }
+                String sname = get.getString("NAME");
                 if (e.getView().getTitle().equals(Chat.colorize(Objects.requireNonNull(sname)))) {
                     e.setCancelled(true);
                     if (e.getClick() == ClickType.LEFT) {

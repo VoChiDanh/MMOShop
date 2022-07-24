@@ -2,6 +2,7 @@ package net.danh.mmoshop.Manager;
 
 import net.danh.dcore.Utils.Chat;
 import net.danh.mmoshop.File.Files;
+import net.danh.mmoshop.File.Shop;
 import net.danh.mmoshop.MMOShop;
 import org.bukkit.entity.Player;
 
@@ -11,6 +12,8 @@ import java.util.Set;
 import java.util.logging.Level;
 
 public class Debug {
+
+    public static HashMap<Player, Shop> playerShopHashMap = new HashMap<>();
 
     public static Set<Player> sell = new HashSet<>();
     public static Set<Player> buy = new HashSet<>();
