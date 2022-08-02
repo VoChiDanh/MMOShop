@@ -17,8 +17,6 @@ public class Debug {
 
     public static Set<Player> sell = new HashSet<>();
     public static Set<Player> buy = new HashSet<>();
-
-    public static HashMap<Player, String> name = new HashMap<>();
     public static HashMap<Player, String> item_type = new HashMap<>();
     public static HashMap<Player, String> item_id = new HashMap<>();
 

@@ -19,21 +19,6 @@ import static net.danh.dcore.Utils.Player.sendPlayerMessage;
 public class Inventory implements Listener {
 
     @EventHandler
-    public void onClose(InventoryCloseEvent e) {
-        if (e.getPlayer() instanceof Player) {
-            Player p = (Player) e.getPlayer();
-            if (Debug.playerShopHashMap.containsKey(p)) {
-                Shop shop = Debug.playerShopHashMap.get(p);
-                FileConfiguration get = shop.getConfig();
-                String sname = get.getString("NAME");
-                if (e.getView().getTitle().equals(Chat.colorize(Objects.requireNonNull(sname)))) {
-                    Debug.playerShopHashMap.remove(p);
-                }
-            }
-        }
-    }
-
-    @EventHandler
     public void onClick(InventoryClickEvent e) {
         if (e.getWhoClicked() instanceof Player) {
             Player p = (Player) e.getWhoClicked();
@@ -54,7 +39,7 @@ public class Inventory implements Listener {
                                     }
                                     if (get.getInt("ITEMS." + names + ".SELL_PRICE.COST") > 0) {
                                         Debug.sell.add(p);
-                                        Debug.name.put(p, shop.getName());
+                                        Debug.playerShopHashMap.put(p, shop);
                                         Debug.item_type.put(p, get.getString("ITEMS." + names + ".MMO_TYPE"));
                                         Debug.item_id.put(p, get.getString("ITEMS." + names + ".MMO_ID"));
                                         p.closeInventory();
@@ -75,7 +60,7 @@ public class Inventory implements Listener {
                                     }
                                     if (get.getInt("ITEMS." + names + ".BUY_PRICE.COST") > 0) {
                                         Debug.buy.add(p);
-                                        Debug.name.put(p, shop.getName());
+                                        Debug.playerShopHashMap.put(p, shop);
                                         Debug.item_type.put(p, get.getString("ITEMS." + names + ".MMO_TYPE"));
                                         Debug.item_id.put(p, get.getString("ITEMS." + names + ".MMO_ID"));
                                         p.closeInventory();

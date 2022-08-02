@@ -23,14 +23,14 @@ public class Chat implements Listener {
         Player p = e.getPlayer();
         String msg = ChatColor.stripColor(e.getMessage());
         if (Debug.sell.contains(p)) {
-            Shop shop = new Shop(Debug.name.get(p));
+            Shop shop = Debug.playerShopHashMap.get(p);
             if (isInteger(msg)) {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
                         Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), shop.getConfig().getDouble("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COST"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COMMAND"), Integer.parseInt(msg));
                         Debug.sell.remove(p);
-                        Debug.name.remove(p, shop.getName());
+                        Debug.playerShopHashMap.remove(p, shop);
                         Debug.item_type.remove(p);
                         Debug.item_id.remove(p);
                         Shops.openShop(p, shop);
@@ -42,7 +42,7 @@ public class Chat implements Listener {
                     public void run() {
                         sendPlayerMessage(p, Files.getLanguage().getString("NOT_NUMBER"));
                         Debug.sell.remove(p);
-                        Debug.name.remove(p, shop.getName());
+                        Debug.playerShopHashMap.remove(p, shop);
                         Debug.item_type.remove(p);
                         Debug.item_id.remove(p);
                         Shops.openShop(p, shop);
@@ -56,7 +56,7 @@ public class Chat implements Listener {
                         Debug.sell.remove(p);
                         Debug.item_type.remove(p);
                         Debug.item_id.remove(p);
-                        Debug.name.remove(p, shop.getName());
+                        Debug.playerShopHashMap.remove(p, shop);
                         Shops.openShop(p, shop);
                     }
                 }.runTask(MMOShop.getInstance());
@@ -64,14 +64,14 @@ public class Chat implements Listener {
             e.setCancelled(true);
         }
         if (Debug.buy.contains(p)) {
-            Shop shop = new Shop(Debug.name.get(p));
+            Shop shop = Debug.playerShopHashMap.get(p);
             if (isInteger(msg)) {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
                         Item.buyItem(p, Debug.item_type.get(p), Debug.item_id.get(p), shop.getConfig().getDouble("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.COST"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.COMMAND"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.PLACEHOLDER"), Integer.parseInt(msg));
                         Debug.buy.remove(p);
-                        Debug.name.remove(p, shop.getName());
+                        Debug.playerShopHashMap.remove(p, shop);
                         Debug.item_type.remove(p);
                         Debug.item_id.remove(p);
                         Shops.openShop(p, shop);
@@ -83,7 +83,7 @@ public class Chat implements Listener {
                     public void run() {
                         sendPlayerMessage(p, Files.getLanguage().getString("NOT_NUMBER"));
                         Debug.sell.remove(p);
-                        Debug.name.remove(p, shop.getName());
+                        Debug.playerShopHashMap.remove(p, shop);
                         Debug.item_type.remove(p);
                         Debug.item_id.remove(p);
                         Shops.openShop(p, shop);
@@ -97,7 +97,7 @@ public class Chat implements Listener {
                         Debug.buy.remove(p);
                         Debug.item_type.remove(p);
                         Debug.item_id.remove(p);
-                        Debug.name.remove(p, shop.getName());
+                        Debug.playerShopHashMap.remove(p, shop);
                         Shops.openShop(p, shop);
                     }
                 }.runTask(MMOShop.getInstance());
