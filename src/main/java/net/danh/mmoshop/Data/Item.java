@@ -82,7 +82,7 @@ public class Item {
         return mmoitem.newBuilder().build() != null;
     }
 
-    private static ItemStack item(String type, String id) {
+    public static ItemStack item(String type, String id) {
         if (checkItems(type, id)) {
             MMOItem mmoitem = MMOItems.plugin.getMMOItem(MMOItems.plugin.getTypes().get(type), id);
             return Objects.requireNonNull(mmoitem).newBuilder().build();

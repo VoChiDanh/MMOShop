@@ -36,6 +36,18 @@ public class Chat implements Listener {
                         Shops.openShop(p, shop);
                     }
                 }.runTask(MMOShop.getInstance());
+            } else if (msg.equalsIgnoreCase(Files.getConfig().getString("ALL_MESSAGE"))) {
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), shop.getConfig().getDouble("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COST"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COMMAND"), Item.getPlayerAmount(p, Item.item(Debug.item_type.get(p), Debug.item_id.get(p))));
+                        Debug.sell.remove(p);
+                        Debug.playerShopHashMap.remove(p, shop);
+                        Debug.item_type.remove(p);
+                        Debug.item_id.remove(p);
+                        Shops.openShop(p, shop);
+                    }
+                }.runTask(MMOShop.getInstance());
             } else {
                 new BukkitRunnable() {
                     @Override

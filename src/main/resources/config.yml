@@ -7,5 +7,6 @@ LORE:
   - "&3Left-click to sell"
   - "&3Right-click to buy"
 EXIT_MESSAGE: "exit"
+ALL_MESSAGE: "all"
 SHOP:
   - example
