@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static net.danh.mmoshop.MMOShop.getInstance;
-import static net.danh.mmoshop.MMOShop.loadShop;
+import static net.danh.mmoshop.Manager.Shops.loadShop;
 
 public class Files {
 

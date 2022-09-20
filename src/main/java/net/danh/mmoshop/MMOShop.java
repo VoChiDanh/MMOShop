@@ -5,10 +5,11 @@ import net.danh.mmoshop.Commands.CMD;
 import net.danh.mmoshop.Events.Chat;
 import net.danh.mmoshop.Events.Inventory;
 import net.danh.mmoshop.File.Files;
-import net.danh.mmoshop.File.Shop;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import static net.danh.mmoshop.Manager.Shops.loadShop;
 
 public final class MMOShop extends JavaPlugin {
 
@@ -16,14 +17,6 @@ public final class MMOShop extends JavaPlugin {
 
     public static MMOShop getInstance() {
         return instance;
-    }
-
-    public static void loadShop() {
-        for (String name : Files.getConfig().getStringList("SHOP")) {
-            Shop shop = new Shop(name);
-            shop.save();
-            shop.load();
-        }
     }
 
 

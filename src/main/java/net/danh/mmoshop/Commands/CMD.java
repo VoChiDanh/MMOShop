@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static net.danh.dcore.List.Contain.inList;
 import static net.danh.dcore.Utils.Player.sendConsoleMessage;
 import static net.danh.dcore.Utils.Player.sendPlayerMessage;
 import static net.danh.mmoshop.File.Files.*;
@@ -46,7 +45,7 @@ public class CMD extends CMDBase {
         }
         if (args.length == 2) {
             if (args[0].equalsIgnoreCase("shop")) {
-                if (inList(getConfig().getStringList("SHOP"), args[1])) {
+                if (getConfig().getStringList("SHOP").contains(args[1])) {
                     if (p.hasPermission("mmoshop.shop." + args[1]) || p.hasPermission("mmoshop.shop.*")) {
                         Shop shop = new Shop(args[1]);
                         if (shop.getConfig().getKeys(false).size() == 0) {
@@ -82,7 +81,7 @@ public class CMD extends CMDBase {
                 return;
             }
             if (args[0].equalsIgnoreCase("shop")) {
-                if (inList(getConfig().getStringList("SHOP"), args[1])) {
+                if (getConfig().getStringList("SHOP").contains(args[1])) {
                     Shop shop = new Shop(args[1]);
                     if (shop.getConfig().getKeys(false).size() == 0) {
                         sendPlayerMessage(p, "&cShop " + args[1] + " is empty, let's see example.yml in plugin folder to config new shop!");

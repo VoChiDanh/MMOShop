@@ -78,7 +78,6 @@ public class Shop {
                 e.printStackTrace();
             }
         }
-        MMOShop.getInstance().getLogger().log(Level.INFO, "Loaded " + Files.getConfig().getStringList("SHOP").size() + " shop(s)");
     }
 
     public String getName() {

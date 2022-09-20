@@ -1,5 +1,6 @@
 package net.danh.mmoshop.Events;
 
+import net.danh.dcore.Random.Number;
 import net.danh.mmoshop.Data.Item;
 import net.danh.mmoshop.File.Files;
 import net.danh.mmoshop.File.Shop;
@@ -13,7 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static net.danh.dcore.Random.Number.isInteger;
 import static net.danh.dcore.Utils.Player.sendPlayerMessage;
 
 public class Chat implements Listener {
@@ -24,7 +24,7 @@ public class Chat implements Listener {
         String msg = ChatColor.stripColor(e.getMessage());
         if (Debug.sell.contains(p)) {
             Shop shop = Debug.playerShopHashMap.get(p);
-            if (isInteger(msg)) {
+            if (Number.getInt(msg) > 0) {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
@@ -77,7 +77,7 @@ public class Chat implements Listener {
         }
         if (Debug.buy.contains(p)) {
             Shop shop = Debug.playerShopHashMap.get(p);
-            if (isInteger(msg)) {
+            if (Number.getInt(msg) > 0) {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
