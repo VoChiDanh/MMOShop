@@ -1,6 +1,6 @@
 package net.danh.mmoshop.Manager;
 
-import net.danh.dcore.Utils.Chat;
+import net.danh.litecore.Utils.Chat;
 import net.danh.mmoshop.File.Files;
 import net.danh.mmoshop.File.Shop;
 import net.danh.mmoshop.MMOShop;

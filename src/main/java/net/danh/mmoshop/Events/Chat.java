@@ -1,11 +1,11 @@
 package net.danh.mmoshop.Events;
 
-import net.danh.dcore.Random.Number;
 import net.danh.mmoshop.Data.Item;
 import net.danh.mmoshop.File.Files;
 import net.danh.mmoshop.File.Shop;
 import net.danh.mmoshop.MMOShop;
 import net.danh.mmoshop.Manager.Debug;
+import net.danh.mmoshop.Manager.Number;
 import net.danh.mmoshop.Manager.Shops;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
@@ -14,7 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static net.danh.dcore.Utils.Player.sendPlayerMessage;
+import static net.danh.litecore.Utils.Chat.sendPlayerMessage;
 
 public class Chat implements Listener {
 

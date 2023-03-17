@@ -1,6 +1,5 @@
 package net.danh.mmoshop;
 
-import net.danh.dcore.Utils.File;
 import net.danh.mmoshop.Commands.CMD;
 import net.danh.mmoshop.Events.Chat;
 import net.danh.mmoshop.Events.Inventory;
@@ -27,7 +26,6 @@ public final class MMOShop extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Chat(), this);
         getServer().getPluginManager().registerEvents(new Inventory(), this);
         Files.create();
-        File.updateFile(MMOShop.getInstance(), Files.getLanguage(), "language.yml");
         loadShop();
     }
 

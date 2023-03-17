@@ -2,26 +2,26 @@ package net.danh.mmoshop.Manager;
 
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.item.mmoitem.MMOItem;
-import net.danh.dcore.Utils.Chat;
+import net.danh.litecore.Utils.Chat;
 import net.danh.mmoshop.File.Files;
 import net.danh.mmoshop.File.Shop;
 import net.danh.mmoshop.MMOShop;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.stream.Collectors;
-
-import static net.danh.dcore.Utils.Items.Lore;
-import static net.danh.dcore.Utils.Items.makeItem;
 
 public class Shops {
     public static void loadShop() {
@@ -66,7 +66,7 @@ public class Shops {
                     return;
                 }
                 List<String> lore = meta.getLore();
-                List<String> lore_item = Lore(Files.getConfig().getStringList("LORE"));
+                List<String> lore_item = Chat.colorize(Files.getConfig().getStringList("LORE"));
                 if (get.getDouble("ITEMS." + item_name + ".SELL_PRICE.COST") > 0d && get.getDouble("ITEMS." + item_name + ".BUY_PRICE.COST") > 0d) {
                     lore_item = lore_item.stream().map(s -> s.replaceAll("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replaceAll("%sell%", String.valueOf(get.getDouble("ITEMS." + item_name + ".SELL_PRICE.COST"))).replaceAll("%buy%", String.valueOf(get.getDouble("ITEMS." + item_name + ".BUY_PRICE.COST")))).collect(Collectors.toList());
                 }
@@ -88,9 +88,9 @@ public class Shops {
                 }
                 if (lore != null) {
                     lore.addAll(lore_item);
-                    meta.setLore(Lore(lore));
+                    meta.setLore(Chat.colorize(lore));
                 } else {
-                    meta.setLore(Lore(lore_item));
+                    meta.setLore(Chat.colorize(lore_item));
                 }
                 item.setItemMeta(meta);
                 int slot = get.getInt("ITEMS." + item_name + ".SLOT");
@@ -132,7 +132,7 @@ public class Shops {
                     return null;
                 }
                 List<String> lore = meta.getLore();
-                List<String> lore_item = Lore(Files.getConfig().getStringList("LORE"));
+                List<String> lore_item = Chat.colorize(Files.getConfig().getStringList("LORE"));
                 if (get.getDouble("ITEMS." + item_name + ".SELL_PRICE.COST") > 0d && get.getDouble("ITEMS." + item_name + ".BUY_PRICE.COST") > 0d) {
                     lore_item = lore_item.stream().map(s -> s.replaceAll("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replaceAll("%sell%", String.valueOf(get.getDouble("ITEMS." + item_name + ".SELL_PRICE.COST"))).replaceAll("%buy%", String.valueOf(get.getDouble("ITEMS." + item_name + ".BUY_PRICE.COST")))).collect(Collectors.toList());
                 }
@@ -154,9 +154,9 @@ public class Shops {
                 }
                 if (lore != null) {
                     lore.addAll(lore_item);
-                    meta.setLore(Lore(lore));
+                    meta.setLore(Chat.colorize(lore));
                 } else {
-                    meta.setLore(Lore(lore_item));
+                    meta.setLore(Chat.colorize(lore_item));
                 }
                 item.setItemMeta(meta);
                 int slot = get.getInt("ITEMS." + item_name + ".SLOT");
@@ -164,5 +164,119 @@ public class Shops {
             }
         }
         return inv;
+    }
+
+    /**
+     * @param material    Material
+     * @param data        Data (For legacy version 1.12.x and below)
+     * @param amount      int
+     * @param glow        true/false
+     * @param HideFlag    true/false
+     * @param Unbreakable true/false
+     * @param name        Item name
+     * @param lore        Item lore
+     * @return ItemStack
+     */
+    public static ItemStack makeItem(Material material, Short data, Integer amount, Boolean glow, Boolean HideFlag, Boolean Unbreakable, String name, List<String> lore) {
+        ItemStack itemStack;
+        if (data >= 0) {
+            itemStack = new ItemStack(material, amount);
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            Objects.requireNonNull(itemMeta).setDisplayName(Chat.colorize(name));
+            if (lore != null) {
+                itemMeta.setLore(Chat.colorize(lore));
+            }
+            if (glow) {
+                itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+                itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            }
+            if (HideFlag) {
+                itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
+            }
+            if (Unbreakable) {
+                itemMeta.setUnbreakable(true);
+            }
+            itemStack.setItemMeta(itemMeta);
+        } else {
+            itemStack = new ItemStack(material, amount, data);
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            Objects.requireNonNull(itemMeta).setDisplayName(Chat.colorize(name));
+            if (lore != null) {
+                itemMeta.setLore(Chat.colorize(lore));
+            }
+            if (glow) {
+                itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+                itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            }
+            if (HideFlag) {
+                itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
+            }
+            if (Unbreakable) {
+                itemMeta.setUnbreakable(true);
+            }
+            itemStack.setItemMeta(itemMeta);
+        }
+        return itemStack;
+    }
+
+    /**
+     * @param material    Material
+     * @param data        Data (For legacy version 1.13 below), null if you use 1.13+
+     * @param amount      int
+     * @param glow        true/false
+     * @param HideFlag    true/false
+     * @param Unbreakable true/false
+     * @param name        Item name
+     * @param lore        Item lore
+     * @return ItemStack
+     */
+    public static ItemStack makeItem(Material material, Short data, Integer amount, Boolean glow, Boolean HideFlag, Boolean Unbreakable, String name, String... lore) {
+        ItemStack itemStack;
+        if (data == null) {
+            itemStack = new ItemStack(material, amount);
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            Objects.requireNonNull(itemMeta).setDisplayName(Chat.colorize(name));
+            if (lore != null) {
+                List<String> l = new ArrayList<>();
+                for (String lores : lore) {
+                    l.add(Chat.colorize(lores));
+                }
+                itemMeta.setLore(Chat.colorize(l));
+            }
+            if (glow) {
+                itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+                itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            }
+            if (HideFlag) {
+                itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
+            }
+            if (Unbreakable) {
+                itemMeta.setUnbreakable(true);
+            }
+            itemStack.setItemMeta(itemMeta);
+        } else {
+            itemStack = new ItemStack(material, amount, data);
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            Objects.requireNonNull(itemMeta).setDisplayName(Chat.colorize(name));
+            if (lore != null) {
+                List<String> l = new ArrayList<>();
+                for (String lores : lore) {
+                    l.add(Chat.colorize(lores));
+                }
+                itemMeta.setLore(l);
+            }
+            if (glow) {
+                itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+                itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            }
+            if (HideFlag) {
+                itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
+            }
+            if (Unbreakable) {
+                itemMeta.setUnbreakable(true);
+            }
+            itemStack.setItemMeta(itemMeta);
+        }
+        return itemStack;
     }
 }

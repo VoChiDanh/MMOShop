@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 
-import static net.danh.dcore.Utils.Player.sendPlayerMessage;
+import static net.danh.litecore.Utils.Chat.sendPlayerMessage;
 import static net.danh.mmoshop.File.Files.getLanguage;
 
 public class Item {

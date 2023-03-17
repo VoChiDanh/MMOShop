@@ -1,6 +1,6 @@
 package net.danh.mmoshop.Events;
 
-import net.danh.dcore.Utils.Chat;
+import net.danh.litecore.Utils.Chat;
 import net.danh.mmoshop.File.Files;
 import net.danh.mmoshop.File.Shop;
 import net.danh.mmoshop.Manager.Debug;
@@ -13,14 +13,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.Objects;
 
-import static net.danh.dcore.Utils.Player.sendPlayerMessage;
+import static net.danh.litecore.Utils.Chat.sendPlayerMessage;
+
 
 public class Inventory implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
-        if (e.getWhoClicked() instanceof Player) {
-            Player p = (Player) e.getWhoClicked();
+        if (e.getWhoClicked() instanceof Player p) {
             if (Debug.playerShopHashMap.containsKey(p)) {
                 Shop shop = Debug.playerShopHashMap.get(p);
                 FileConfiguration get = shop.getConfig();

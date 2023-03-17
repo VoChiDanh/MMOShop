@@ -6,7 +6,7 @@
 
     <groupId>net.danh</groupId>
     <artifactId>MMOShop</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>MMOShop</name>
@@ -78,7 +78,7 @@
         </repository>
         <repository>
             <id>phoenix</id>
-            <url>https://nexus.phoenixdvpt.fr/repository/maven-public/</url>
+            <url>https://nexus.phoenixdevt.fr/repository/maven-public/</url>
         </repository>
         <repository>
             <id>jitpack.io</id>
@@ -99,14 +99,14 @@
         </dependency>
         <dependency>
             <groupId>io.lumine</groupId>
-            <artifactId>MythicLib-dist</artifactId>
-            <version>1.4.2-SNAPSHOT</version>
+            <artifactId>MythicLib</artifactId>
+            <version>1.5.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.Indyuce</groupId>
             <artifactId>MMOItems-API</artifactId>
-            <version>6.8.1-SNAPSHOT</version>
+            <version>6.9.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -116,9 +116,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.D-x-Z</groupId>
-            <artifactId>DCore</artifactId>
-            <version>9aa329d44e</version>
+            <groupId>com.github.VoChiDanh</groupId>
+            <artifactId>LiteCore</artifactId>
+            <version>30e5c29460</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
