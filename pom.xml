@@ -98,7 +98,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.lumine</groupId>
+            <groupId>net.Indyuce</groupId>
             <artifactId>MMOLib</artifactId>
             <version>1.6-SNAPSHOT</version>
             <scope>provided</scope>
