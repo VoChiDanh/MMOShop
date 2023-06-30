@@ -100,13 +100,13 @@
         <dependency>
             <groupId>io.lumine</groupId>
             <artifactId>MythicLib</artifactId>
-            <version>1.6</version>
+            <version>1.6.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.Indyuce</groupId>
             <artifactId>MMOItems-API</artifactId>
-            <version>6.9.4</version>
+            <version>6.9.5-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
