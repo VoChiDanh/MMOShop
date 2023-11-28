@@ -20,7 +20,8 @@ public class Inventory implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
-        if (e.getWhoClicked() instanceof Player p) {
+        if (e.getWhoClicked() instanceof Player) {
+            Player p = (Player) e.getWhoClicked();
             if (Debug.playerShopHashMap.containsKey(p)) {
                 Shop shop = Debug.playerShopHashMap.get(p);
                 FileConfiguration get = shop.getConfig();
