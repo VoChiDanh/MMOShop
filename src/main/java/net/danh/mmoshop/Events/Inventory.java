@@ -33,11 +33,11 @@ public class Inventory implements Listener {
                         for (String names : Objects.requireNonNull(get.getConfigurationSection("ITEMS")).getKeys(false)) {
                             if (get.contains("ITEMS." + names + ".MMO_TYPE") && get.contains("ITEMS." + names + ".MMO_ID")) {
                                 if (get.getInt("ITEMS." + names + ".SLOT") == slot) {
-                                    if (get.getInt("ITEMS." + names + ".SELL_PRICE.COST") <= 0) {
+                                    if (get.getDouble("ITEMS." + names + ".SELL_PRICE.COST") < 0) {
                                         sendPlayerMessage(p, Files.getLanguage().getString("CAN_NOT_SELL"));
                                         return;
                                     }
-                                    if (get.getInt("ITEMS." + names + ".SELL_PRICE.COST") > 0) {
+                                    if (get.getDouble("ITEMS." + names + ".SELL_PRICE.COST") > 0) {
                                         Debug.sell.add(p);
                                         Debug.playerShopHashMap.put(p, shop);
                                         Debug.item_type.put(p, get.getString("ITEMS." + names + ".MMO_TYPE"));
