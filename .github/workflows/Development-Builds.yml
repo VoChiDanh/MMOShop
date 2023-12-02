@@ -40,5 +40,5 @@ jobs:
           embed-footer-icon-url: "https://i.imgur.com/D5KVghH.png"
           embed-description: |
             ${{ github.event.head_commit.message }}
-            
-            Download: [`Build #${{github.run_number}}`](https://nightly.link/${{github.repository}}/actions/runs/${{ github.run_id }}/[DevBuild]-MMOShop.zip)
+
+          filename: "./target/MMOShop.jar"
