@@ -24,7 +24,7 @@ import static net.danh.litecore.Utils.Chat.sendPlayerMessage;
 public class Chat implements Listener {
 
 
-    public double calculatorPrice(Player p, String value) {
+    public static double calculatorPrice(Player p, String value) {
         String papi_parse = PlaceholderAPI.setPlaceholders(p, value);
         String papi_cal = Calculator.calculator(papi_parse, 0);
         NumberFormat formatter = new DecimalFormat("#.##");
