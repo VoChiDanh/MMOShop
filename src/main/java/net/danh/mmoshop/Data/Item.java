@@ -11,6 +11,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -67,8 +68,8 @@ public class Item {
         int a = getPlayerAmount(p, item);
         if (a >= amount) {
             removeItems(p, item, amount);
-            ExecuteCommand(p, Command, (price * amount));
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.valueOf(price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
+            ExecuteCommand(p, Command, Double.parseDouble(new DecimalFormat("#.###").format(price * amount)));
+            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount))).replaceAll("%amount%", String.format("%,d", amount)));
         } else {
             sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()));
         }
