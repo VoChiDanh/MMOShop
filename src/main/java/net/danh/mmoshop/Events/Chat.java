@@ -36,8 +36,20 @@ public class Chat implements Listener {
         Player p = e.getPlayer();
         String msg = ChatColor.stripColor(e.getMessage());
         if (Debug.sell.contains(p)) {
+            Debug.debug(msg);
             Shop shop = Debug.playerShopHashMap.get(p);
-            if (Number.getInt(msg) > 0) {
+            if (msg.equalsIgnoreCase(org.bukkit.ChatColor.stripColor(Files.getConfig().getString("EXIT_MESSAGE")))) {
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        Debug.sell.remove(p);
+                        Debug.item_type.remove(p);
+                        Debug.item_id.remove(p);
+                        Debug.playerShopHashMap.remove(p, shop);
+                        Shops.openShop(p, shop);
+                    }
+                }.runTask(MMOShop.getInstance());
+            } else if (Number.getInt(msg) > 0) {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
@@ -74,23 +86,23 @@ public class Chat implements Listener {
                     }
                 }.runTask(MMOShop.getInstance());
             }
+            e.setCancelled(true);
+        }
+        if (Debug.buy.contains(p)) {
+            Shop shop = Debug.playerShopHashMap.get(p);
+            Debug.debug(msg);
             if (msg.equalsIgnoreCase(org.bukkit.ChatColor.stripColor(Files.getConfig().getString("EXIT_MESSAGE")))) {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        Debug.sell.remove(p);
+                        Debug.buy.remove(p);
                         Debug.item_type.remove(p);
                         Debug.item_id.remove(p);
                         Debug.playerShopHashMap.remove(p, shop);
                         Shops.openShop(p, shop);
                     }
                 }.runTask(MMOShop.getInstance());
-            }
-            e.setCancelled(true);
-        }
-        if (Debug.buy.contains(p)) {
-            Shop shop = Debug.playerShopHashMap.get(p);
-            if (Number.getInt(msg) > 0) {
+            } else if (Number.getInt(msg) > 0) {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
@@ -111,18 +123,6 @@ public class Chat implements Listener {
                         Debug.playerShopHashMap.remove(p, shop);
                         Debug.item_type.remove(p);
                         Debug.item_id.remove(p);
-                        Shops.openShop(p, shop);
-                    }
-                }.runTask(MMOShop.getInstance());
-            }
-            if (msg.equalsIgnoreCase(org.bukkit.ChatColor.stripColor(Files.getConfig().getString("EXIT_MESSAGE")))) {
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        Debug.buy.remove(p);
-                        Debug.item_type.remove(p);
-                        Debug.item_id.remove(p);
-                        Debug.playerShopHashMap.remove(p, shop);
                         Shops.openShop(p, shop);
                     }
                 }.runTask(MMOShop.getInstance());
