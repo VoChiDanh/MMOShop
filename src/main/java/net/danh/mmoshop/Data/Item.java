@@ -68,8 +68,8 @@ public class Item {
         int a = getPlayerAmount(p, item);
         if (a >= amount) {
             removeItems(p, item, amount);
-            ExecuteCommand(p, Command, Double.parseDouble(new DecimalFormat("#.###").format(price * amount)));
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount))).replaceAll("%amount%", String.format("%,d", amount)));
+            ExecuteCommand(p, Command, Double.parseDouble(new DecimalFormat("#.###").format(price * amount).replace(",", ".")));
+            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount).replace(",", "."))).replaceAll("%amount%", String.format("%,d", amount)));
         } else {
             sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()));
         }

@@ -46,7 +46,7 @@ public class CMD extends CMDBase {
                 if (getConfig().getStringList("SHOP").contains(args[1])) {
                     if (c.hasPermission("mmoshop.shop." + args[1]) || c.hasPermission("mmoshop.shop.*")) {
                         Shop shop = new Shop(args[1]);
-                        if (shop.getConfig().getKeys(false).size() == 0) {
+                        if (shop.getConfig().getKeys(false).isEmpty()) {
                             sendCommandSenderMessage(c, "&cShop " + args[1] + " is empty, let's see example.yml in plugin folder to config new shop!");
                             return;
                         }

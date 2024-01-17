@@ -22,13 +22,16 @@ import java.text.NumberFormat;
 import static net.danh.litecore.Utils.Chat.sendPlayerMessage;
 
 public class Chat implements Listener {
-
-
     public static double calculatorPrice(Player p, String value) {
-        String papi_parse = PlaceholderAPI.setPlaceholders(p, value);
-        String papi_cal = Calculator.calculator(papi_parse, 0);
-        NumberFormat formatter = new DecimalFormat("#.##");
-        return Double.parseDouble(formatter.format(Double.parseDouble(papi_cal)));
+        if (value.contains("%")) {
+            String papi_parse = PlaceholderAPI.setPlaceholders(p, value);
+            String papi_cal = Calculator.calculator(papi_parse, 0);
+            NumberFormat formatter = new DecimalFormat("#.##");
+            return Double.parseDouble(formatter.format(Double.parseDouble(papi_cal)).replace(",", "."));
+        } else {
+            NumberFormat formatter = new DecimalFormat("#.##");
+            return Double.parseDouble(formatter.format(Double.parseDouble(value)).replace(",", "."));
+        }
     }
 
     @EventHandler
@@ -53,7 +56,7 @@ public class Chat implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COMMAND"), Integer.parseInt(msg));
+                        Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COMMAND"), Integer.parseInt(msg));
                         Debug.sell.remove(p);
                         Debug.playerShopHashMap.remove(p, shop);
                         Debug.item_type.remove(p);
@@ -65,7 +68,7 @@ public class Chat implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".SELL_PRICE.COMMAND"), Item.getPlayerAmount(p, Item.item(Debug.item_type.get(p), Debug.item_id.get(p))));
+                        Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COMMAND"), Item.getPlayerAmount(p, Item.item(Debug.item_type.get(p), Debug.item_id.get(p))));
                         Debug.sell.remove(p);
                         Debug.playerShopHashMap.remove(p, shop);
                         Debug.item_type.remove(p);
@@ -106,7 +109,7 @@ public class Chat implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        Item.buyItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.COMMAND"), shop.getConfig().getString("ITEMS." + Debug.item_id.get(p) + ".BUY_PRICE.PLACEHOLDER"), Integer.parseInt(msg));
+                        Item.buyItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".BUY_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item.get(p) + ".BUY_PRICE.COMMAND"), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".BUY_PRICE.PLACEHOLDER"), Integer.parseInt(msg));
                         Debug.buy.remove(p);
                         Debug.playerShopHashMap.remove(p, shop);
                         Debug.item_type.remove(p);

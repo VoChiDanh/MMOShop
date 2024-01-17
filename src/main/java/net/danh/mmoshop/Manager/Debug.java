@@ -19,6 +19,7 @@ public class Debug {
     public static Set<Player> buy = new HashSet<>();
     public static HashMap<Player, String> item_type = new HashMap<>();
     public static HashMap<Player, String> item_id = new HashMap<>();
+    public static HashMap<Player, String> item = new HashMap<>();
 
     public static void debug(String msg) {
         if (Files.getConfig().getBoolean("DEBUG")) {
