@@ -33,10 +33,10 @@ public class Inventory implements Listener {
                         for (String names : Objects.requireNonNull(get.getConfigurationSection("ITEMS")).getKeys(false)) {
                             if (get.contains("ITEMS." + names + ".MMO_TYPE") && get.contains("ITEMS." + names + ".MMO_ID")) {
                                 if (get.getInt("ITEMS." + names + ".SLOT") == slot) {
-                                    if (net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + names + ".SELL_PRICE.COST")) < 0) {
+                                    if (get.getDouble("ITEMS." + names + ".SELL_PRICE.COST") < 0) {
                                         sendPlayerMessage(p, Files.getLanguage().getString("CAN_NOT_SELL"));
                                         return;
-                                    } else if (net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + names + ".SELL_PRICE.COST")) > 0) {
+                                    } else if (get.getDouble("ITEMS." + names + ".SELL_PRICE.COST") > 0) {
                                         Debug.sell.add(p);
                                         Debug.playerShopHashMap.put(p, shop);
                                         Debug.item_type.put(p, get.getString("ITEMS." + names + ".MMO_TYPE"));
@@ -53,11 +53,11 @@ public class Inventory implements Listener {
                         for (String names : Objects.requireNonNull(get.getConfigurationSection("ITEMS")).getKeys(false)) {
                             if (get.contains("ITEMS." + names + ".MMO_TYPE") && get.contains("ITEMS." + names + ".MMO_ID")) {
                                 if (get.getInt("ITEMS." + names + ".SLOT") == slot) {
-                                    if (net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + names + ".BUY_PRICE.COST")) <= 0) {
+                                    if (get.getDouble("ITEMS." + names + ".BUY_PRICE.COST") <= 0) {
                                         sendPlayerMessage(p, Files.getLanguage().getString("CAN_NOT_BUY"));
                                         return;
                                     }
-                                    if (net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + names + ".BUY_PRICE.COST")) > 0) {
+                                    if (get.getDouble("ITEMS." + names + ".BUY_PRICE.COST") > 0) {
                                         Debug.buy.add(p);
                                         Debug.playerShopHashMap.put(p, shop);
                                         Debug.item_type.put(p, get.getString("ITEMS." + names + ".MMO_TYPE"));
