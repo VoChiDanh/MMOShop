@@ -72,9 +72,18 @@ public class Item {
                 removeItems(p, item, amount);
             }
             ExecuteCommand(p, Command, Double.parseDouble(new DecimalFormat("#.###").format(price * amount).replace(",", ".")));
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", item.getItemMeta().getDisplayName() != null ? item.getItemMeta().getDisplayName() : shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")).replaceAll("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount).replace(",", "."))).replaceAll("%amount%", String.format("%,d", amount)));
+            if (item != null) {
+                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount).replace(",", "."))).replaceAll("%amount%", String.format("%,d", amount)));
+            } else {
+                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")).replaceAll("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount).replace(",", "."))).replaceAll("%amount%", String.format("%,d", amount)));
+            }
         } else {
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", item.getItemMeta().getDisplayName() != null ? item.getItemMeta().getDisplayName() : shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")));
+            if (item != null) {
+                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()));
+            } else {
+
+                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")));
+            }
         }
     }
 
@@ -122,7 +131,9 @@ public class Item {
             if (item != null) {
                 p.getInventory().addItem(item);
             }
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", item.getItemMeta().getDisplayName() != null ? item.getItemMeta().getDisplayName() : shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")).replaceAll("%price%", String.valueOf(price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
+            if (item != null) {
+                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.valueOf(price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
+            } else sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")).replaceAll("%price%", String.valueOf(price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
         } else {
             sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_MONEY")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%money%", String.valueOf(price * amount)));
         }
