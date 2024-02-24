@@ -56,7 +56,7 @@ public class Chat implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COMMAND"), Integer.parseInt(msg));
+                        Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COMMAND"), Integer.parseInt(msg), Debug.playerShopHashMap.get(p));
                         Debug.sell.remove(p);
                         Debug.playerShopHashMap.remove(p, shop);
                         Debug.item_type.remove(p);
@@ -68,7 +68,7 @@ public class Chat implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COMMAND"), Item.getPlayerAmount(p, Item.item(Debug.item_type.get(p), Debug.item_id.get(p))));
+                        Item.sellItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item.get(p) + ".SELL_PRICE.COMMAND"), Item.getPlayerAmount(p, Item.item(Debug.item_type.get(p), Debug.item_id.get(p))), Debug.playerShopHashMap.get(p));
                         Debug.sell.remove(p);
                         Debug.playerShopHashMap.remove(p, shop);
                         Debug.item_type.remove(p);
@@ -109,7 +109,7 @@ public class Chat implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        Item.buyItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".BUY_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item.get(p) + ".BUY_PRICE.COMMAND"), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".BUY_PRICE.PLACEHOLDER"), Integer.parseInt(msg));
+                        Item.buyItem(p, Debug.item_type.get(p), Debug.item_id.get(p), calculatorPrice(p, shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".BUY_PRICE.COST")), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".SYMBOL"), shop.getConfig().getStringList("ITEMS." + Debug.item.get(p) + ".BUY_PRICE.COMMAND"), shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".BUY_PRICE.PLACEHOLDER"), Integer.parseInt(msg), Debug.playerShopHashMap.get(p));
                         Debug.buy.remove(p);
                         Debug.playerShopHashMap.remove(p, shop);
                         Debug.item_type.remove(p);

@@ -20,6 +20,7 @@ ITEMS:
   RARE_DIAMOND:
     MMO_TYPE: MATERIAL
     MMO_ID: RARE_DIAMOND
+    DISPLAY: "&bCustom display"
     SYMBOL: "$"
     SELL_PRICE:
       COST: 100

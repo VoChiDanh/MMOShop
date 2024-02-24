@@ -3,7 +3,9 @@ package net.danh.mmoshop.Data;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.item.mmoitem.MMOItem;
+import net.danh.mmoshop.File.Shop;
 import net.danh.mmoshop.MMOShop;
+import net.danh.mmoshop.Manager.Debug;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -59,19 +61,20 @@ public class Item {
         player.updateInventory();
     }
 
-    public static void sellItem(Player p, String type, String id, Double price, String symbol, List<String> Command, Integer amount) {
+    public static void sellItem(Player p, String type, String id, Double price, String symbol, List<String> Command, Integer amount, Shop shop) {
         ItemStack item = item(type, id);
-        if (item == null) {
-            return;
+        if (item != null) {
+            item.setAmount(amount);
         }
-        item.setAmount(amount);
         int a = getPlayerAmount(p, item);
         if (a >= amount) {
-            removeItems(p, item, amount);
+            if (item != null) {
+                removeItems(p, item, amount);
+            }
             ExecuteCommand(p, Command, Double.parseDouble(new DecimalFormat("#.###").format(price * amount).replace(",", ".")));
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount).replace(",", "."))).replaceAll("%amount%", String.format("%,d", amount)));
+            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", item.getItemMeta().getDisplayName() != null ? item.getItemMeta().getDisplayName() : shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")).replaceAll("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount).replace(",", "."))).replaceAll("%amount%", String.format("%,d", amount)));
         } else {
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()));
+            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", item.getItemMeta().getDisplayName() != null ? item.getItemMeta().getDisplayName() : shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")));
         }
     }
 
@@ -109,16 +112,17 @@ public class Item {
         }
     }
 
-    public static void buyItem(Player p, String type, String id, Double price, String symbol, List<String> commands, String Placeholder, Integer amount) {
+    public static void buyItem(Player p, String type, String id, Double price, String symbol, List<String> commands, String Placeholder, Integer amount, Shop shop) {
         ItemStack item = item(type, id);
-        if (item == null) {
-            return;
+        if (item != null) {
+            item.setAmount(amount);
         }
-        item.setAmount(amount);
         if (Cost(p, Placeholder) >= (price * amount)) {
             ExecuteCommand(p, commands, (price * amount));
-            p.getInventory().addItem(item);
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.valueOf(price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
+            if (item != null) {
+                p.getInventory().addItem(item);
+            }
+            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", item.getItemMeta().getDisplayName() != null ? item.getItemMeta().getDisplayName() : shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")).replaceAll("%price%", String.valueOf(price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
         } else {
             sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_MONEY")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%money%", String.valueOf(price * amount)));
         }
