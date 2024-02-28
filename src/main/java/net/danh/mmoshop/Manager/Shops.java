@@ -49,7 +49,7 @@ public class Shops {
                 List<String> lore = meta.getLore();
                 List<String> lore_item = Chat.colorize(Files.getConfig().getStringList("LORE"));
                 if (net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0")) > 0d && net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0")) > 0d) {
-                    lore_item = lore_item.stream().map(s -> s.replaceAll("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replaceAll("%sell%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0")))).replaceAll("%buy%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0"))))).collect(Collectors.toList());
+                    lore_item = lore_item.stream().map(s -> s.replace("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replace("%sell%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0")))).replace("%buy%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0"))))).collect(Collectors.toList());
                 }
                 if (net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0")) <= 0d && net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0")) > 0d) {
                     for (int i = 0; i < lore_item.size(); i++) {
@@ -57,7 +57,7 @@ public class Shops {
                             lore_item.remove(lore_item.get(i));
                         }
                     }
-                    lore_item = lore_item.stream().map(s -> s.replaceAll("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replaceAll("%buy%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0"))))).collect(Collectors.toList());
+                    lore_item = lore_item.stream().map(s -> s.replace("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replace("%buy%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0"))))).collect(Collectors.toList());
                 }
                 if (net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0")) <= 0d && net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0")) > 0d) {
                     for (int i = 0; i < lore_item.size(); i++) {
@@ -65,7 +65,7 @@ public class Shops {
                             lore_item.remove(lore_item.get(i));
                         }
                     }
-                    lore_item = lore_item.stream().map(s -> s.replaceAll("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replaceAll("%sell%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0"))))).collect(Collectors.toList());
+                    lore_item = lore_item.stream().map(s -> s.replace("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replace("%sell%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0"))))).collect(Collectors.toList());
                 }
                 if (lore != null) {
                     lore.addAll(lore_item);
@@ -100,7 +100,7 @@ public class Shops {
                 List<String> lore = meta.getLore();
                 List<String> lore_item = Chat.colorize(Files.getConfig().getStringList("LORE"));
                 if (net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0")) > 0d && net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0")) > 0d) {
-                    lore_item = lore_item.stream().map(s -> s.replaceAll("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replaceAll("%sell%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0")))).replaceAll("%buy%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0"))))).collect(Collectors.toList());
+                    lore_item = lore_item.stream().map(s -> s.replace("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replace("%sell%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0")))).replace("%buy%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0"))))).collect(Collectors.toList());
                 }
                 if (net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0")) <= 0d && net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0")) > 0d) {
                     for (int i = 0; i < lore_item.size(); i++) {
@@ -108,7 +108,7 @@ public class Shops {
                             lore_item.remove(lore_item.get(i));
                         }
                     }
-                    lore_item = lore_item.stream().map(s -> s.replaceAll("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replaceAll("%buy%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0"))))).collect(Collectors.toList());
+                    lore_item = lore_item.stream().map(s -> s.replace("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replace("%buy%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0"))))).collect(Collectors.toList());
                 }
                 if (net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".BUY_PRICE.COST", "0")) <= 0d && net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0")) > 0d) {
                     for (int i = 0; i < lore_item.size(); i++) {
@@ -116,7 +116,7 @@ public class Shops {
                             lore_item.remove(lore_item.get(i));
                         }
                     }
-                    lore_item = lore_item.stream().map(s -> s.replaceAll("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replaceAll("%sell%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0"))))).collect(Collectors.toList());
+                    lore_item = lore_item.stream().map(s -> s.replace("%symbol%", Matcher.quoteReplacement(Objects.requireNonNull(get.getString("ITEMS." + item_name + ".SYMBOL")))).replace("%sell%", String.valueOf(net.danh.mmoshop.Events.Chat.calculatorPrice(p, get.getString("ITEMS." + item_name + ".SELL_PRICE.COST", "0"))))).collect(Collectors.toList());
                 }
                 if (lore != null) {
                     lore.addAll(lore_item);

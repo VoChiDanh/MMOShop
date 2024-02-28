@@ -71,18 +71,32 @@ public class Item {
             if (item != null) {
                 removeItems(p, item, amount);
             }
-            ExecuteCommand(p, Command, Double.parseDouble(new DecimalFormat("#.###").format(price * amount).replace(",", ".")));
+            ExecuteCommand(p, Command, Double.parseDouble(new DecimalFormat("#.###").format(price * amount).replace(",", ".")), amount);
             if (item != null) {
-                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount).replace(",", "."))).replaceAll("%amount%", String.format("%,d", amount)));
+                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS"))
+                        .replace("%symbol%", Matcher.quoteReplacement(symbol))
+                        .replace("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName())
+                        .replace("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount).replace(",", ".")))
+                        .replace("%amount%", String.valueOf(amount)));
             } else {
-                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")).replaceAll("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount).replace(",", "."))).replaceAll("%amount%", String.format("%,d", amount)));
+                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("SELL_ITEMS"))
+                        .replace("%symbol%", Matcher.quoteReplacement(symbol))
+                        .replace("%item%", shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display"))
+                        .replace("%price%", String.valueOf(new DecimalFormat("#.###").format(price * amount).replace(",", ".")))
+                        .replace("%amount%", String.valueOf(amount)));
             }
         } else {
             if (item != null) {
-                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()));
+                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM"))
+                        .replace("%symbol%", Matcher.quoteReplacement(symbol))
+                        .replace("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName())
+                        .replace("%amount%", String.valueOf(amount)));
             } else {
 
-                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")));
+                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_ITEM"))
+                        .replace("%symbol%", Matcher.quoteReplacement(symbol))
+                        .replace("%item%", shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display"))
+                        .replace("%amount%", String.valueOf(amount)));
             }
         }
     }
@@ -107,10 +121,12 @@ public class Item {
         return BigDecimal.valueOf(Long.parseLong(PlaceholderAPI.setPlaceholders(p, placeholders))).doubleValue();
     }
 
-    public static void ExecuteCommand(Player p, List<String> commands, Double cost) {
+    public static void ExecuteCommand(Player p, List<String> commands, Double cost, int amount) {
         for (String cmd : commands) {
             if (cmd.startsWith("[CMD] ")) {
-                String command = PlaceholderAPI.setPlaceholders(p, cmd.replace("[CMD] ", "").replaceAll("%cost%", String.valueOf(cost)));
+                String command = PlaceholderAPI.setPlaceholders(p, cmd.replace("[CMD] ", "")
+                        .replace("%cost%", String.valueOf(cost))
+                        .replace("%amount%", String.valueOf(amount)));
                 new BukkitRunnable() {
                     @Override
                     public void run() {
@@ -127,15 +143,25 @@ public class Item {
             item.setAmount(amount);
         }
         if (Cost(p, Placeholder) >= (price * amount)) {
-            ExecuteCommand(p, commands, (price * amount));
+            ExecuteCommand(p, commands, (price * amount), amount);
             if (item != null) {
                 p.getInventory().addItem(item);
             }
             if (item != null) {
-                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName()).replaceAll("%price%", String.valueOf(price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
-            } else sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%item%", shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display")).replaceAll("%price%", String.valueOf(price * amount)).replaceAll("%amount%", String.format("%,d", amount)));
+                sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS"))
+                        .replace("%symbol%", Matcher.quoteReplacement(symbol))
+                        .replace("%item%", Objects.requireNonNull(item.getItemMeta()).getDisplayName())
+                        .replace("%price%", String.valueOf(price * amount))
+                        .replace("%amount%", String.valueOf(amount)));
+            } else sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("BUY_ITEMS"))
+                    .replace("%symbol%", Matcher.quoteReplacement(symbol))
+                    .replace("%item%", shop.getConfig().getString("ITEMS." + Debug.item.get(p) + ".DISPLAY", "&bCustom display"))
+                    .replace("%price%", String.valueOf(price * amount))
+                    .replace("%amount%", String.valueOf(amount)));
         } else {
-            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_MONEY")).replaceAll("%symbol%", Matcher.quoteReplacement(symbol)).replaceAll("%money%", String.valueOf(price * amount)));
+            sendPlayerMessage(p, Objects.requireNonNull(getLanguage().getString("NOT_ENOUGH_MONEY"))
+                    .replace("%symbol%", Matcher.quoteReplacement(symbol))
+                    .replace("%amount%", String.valueOf(amount)));
         }
     }
 
